@@ -1,0 +1,21 @@
+import java.util.PriorityQueue;
+
+public class Solution {
+    public int findKthLargest(int[] nums, int k) {
+        // Create a Min-Heap with a comparator that orders elements in ascending order
+        PriorityQueue<Integer> minHeap = new PriorityQueue<>();
+        
+        // Iterate through the array and maintain a heap of size k
+        for (int num : nums) {
+            minHeap.offer(num);
+            
+            // If the heap size exceeds k, remove the smallest element
+            if (minHeap.size() > k) {
+                minHeap.poll();
+            }
+        }
+        
+        // The root of the Min-Heap will be the k-th largest element
+        return minHeap.peek();
+    }
+}
