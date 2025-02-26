@@ -1,0 +1,30 @@
+import java.util.*;
+
+public class Solution {
+    public int[][] merge(int[][] intervals) {
+        // If the intervals array is empty or has only one interval, return it as it is
+        if (intervals.length == 0) {
+            return new int[0][0];
+        }
+        
+        // Step 1: Sort the intervals by the start time
+        Arrays.sort(intervals, (a, b) -> a[0] - b[0]);
+        
+        // Step 2: Initialize the merged list
+        List<int[]> merged = new ArrayList<>();
+        
+        // Step 3: Iterate through the sorted intervals
+        for (int[] interval : intervals) {
+            // If merged is empty or the current interval does not overlap with the last merged interval, add it to the list
+            if (merged.isEmpty() || merged.get(merged.size() - 1)[1] < interval[0]) {
+                merged.add(interval);
+            } else {
+                // If there is overlap, merge the intervals by updating the end time of the last merged interval
+                merged.get(merged.size() - 1)[1] = Math.max(merged.get(merged.size() - 1)[1], interval[1]);
+            }
+        }
+        
+        // Step 4: Convert the List to a 2D array and return it
+        return merged.toArray(new int[merged.size()][]);
+    }
+}
